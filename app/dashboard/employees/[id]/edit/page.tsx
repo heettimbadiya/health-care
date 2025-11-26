@@ -162,7 +162,7 @@ export default function EditEmployeePage() {
             onSubmit={handleSubmit}
             onChange={handleChange}
             onFileSelect={handleFileSelect}
-            onCancel={() => router.back()}
+            onCancel={() => router.push('/dashboard/employees')}
             submitButtonText="Update Employee"
           />
         </div>

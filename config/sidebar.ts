@@ -39,24 +39,4 @@ export const sidebarMenuItems: SidebarMenuItem[] = [
     slug: '/dashboard/employees',
     icon: UsersIcon,
   },
-  {
-    title: 'Patients',
-    slug: '/dashboard/patients',
-    icon: PatientsIcon,
-  },
-  {
-    title: 'Incentives',
-    slug: '/dashboard/incentives',
-    icon: IncentivesIcon,
-  },
-  {
-    title: 'Reports',
-    slug: '/dashboard/reports',
-    icon: ReportsIcon,
-  },
-  {
-    title: 'Settings',
-    slug: '/dashboard/settings',
-    icon: SettingsIcon,
-  },
 ];
