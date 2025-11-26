@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { DashboardLayout } from '@/layouts/DashboardLayout';
-import { EmployeeForm } from '../../components/EmployeeForm';
+import { EmployeeEditForm } from '../../components/EmployeeEditForm';
 import { EmployeeFormData, EmployeeFormErrors, Employee } from '@/types/employee';
 import { validateEmployeeForm, fileToBase64 } from '../../utils/validation';
 import { getEmployeeById, updateEmployee, emailExists } from '../../utils/storage';
@@ -154,19 +154,16 @@ export default function EditEmployeePage() {
           { label: 'Edit' },
         ]}
       >
-        <div className="w-full max-w-4xl mx-auto">
-          <EmployeeForm
+        <div className="w-full">
+          <EmployeeEditForm
             formData={formData}
             errors={errors}
-            mode="edit"
             isLoading={isSaving}
             onSubmit={handleSubmit}
             onChange={handleChange}
             onFileSelect={handleFileSelect}
             onCancel={() => router.back()}
-            showPassword={true}
-            showPhoneNumber={true}
-            showProfilePic={true}
+            submitButtonText="Update Employee"
           />
         </div>
       </DashboardLayout>

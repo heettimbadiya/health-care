@@ -1,7 +1,6 @@
 'use client';
 
-import React from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useRef } from 'react';
 import { DashboardLayout } from '@/layouts/DashboardLayout';
 import Button from '@/components/ui/Button';
 import { EmployeeList } from './components/EmployeeList';
@@ -9,8 +8,8 @@ import { useToaster } from '@/hooks/useToaster';
 import Toaster from '@/components/ui/Toaster';
 
 export default function EmployeesPage() {
-  const router = useRouter();
   const toaster = useToaster();
+  const employeeListRef = useRef<{ openCreateModal: () => void }>(null);
 
   return (
     <>
@@ -24,13 +23,16 @@ export default function EmployeesPage() {
         ]}
         actions={
           <Button
-            onClick={() => router.push('/dashboard/employees/create')}
+            onClick={() => {
+              // Trigger modal opening in EmployeeList via custom event
+              window.dispatchEvent(new CustomEvent('open-create-employee-modal'));
+            }}
           >
             Create Employee
           </Button>
         }
       >
-        <EmployeeList />
+        <EmployeeList ref={employeeListRef} />
       </DashboardLayout>
     </>
   );

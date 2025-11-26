@@ -9,6 +9,7 @@ export { default as Toaster } from './Toaster';
 export { default as Select } from './Select';
 export { default as FileUpload } from './FileUpload';
 export { Table } from './Table';
+export { Modal, default as ModalDefault } from './Modal';
 export type { InputProps } from './Input';
 export type { PasswordInputProps } from './PasswordInput';
 export type { ButtonProps } from './Button';
@@ -18,4 +19,5 @@ export type { Toast, ToastType } from './Toaster';
 export type { SelectProps, SelectOption } from './Select';
 export type { FileUploadProps } from './FileUpload';
 export type { TableProps, TableColumn, SortDirection } from './Table';
+export type { ModalProps } from './Modal';
 

@@ -33,7 +33,7 @@ export function DashboardLayout({
 
         {/* Main Content */}
         <main className="flex-1 overflow-y-auto">
-          <div className="py-6 px-4 sm:px-6 lg:px-8">
+          <div className="py-6 px-4 sm:px-6 lg:px-8 w-full">
             {/* Breadcrumbs */}
             {breadcrumbs && breadcrumbs.length > 0 && (
               <div className="mb-4">
