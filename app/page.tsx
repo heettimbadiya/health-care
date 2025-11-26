@@ -1,16 +1,16 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { isAuthenticated } from "@/lib/auth";
+import { useAuth } from "@/lib/auth";
 
 export default function Home() {
   const router = useRouter();
+  const { isAuthenticated, isLoading } = useAuth();
   const [isChecking, setIsChecking] = useState(true);
 
   useEffect(() => {
-    // Check if user is authenticated
-    const checkAuth = () => {
-      if (isAuthenticated()) {
+    if (!isLoading) {
+      if (isAuthenticated) {
         // If authenticated, redirect to dashboard
         router.push("/dashboard");
       } else {
@@ -18,15 +18,8 @@ export default function Home() {
         router.push("/auth/login");
       }
       setIsChecking(false);
-    };
-
-    // Small delay to ensure localStorage is available
-    const timer = setTimeout(() => {
-      checkAuth();
-    }, 100);
-
-    return () => clearTimeout(timer);
-  }, [router]);
+    }
+  }, [isAuthenticated, isLoading, router]);
 
   // Show loading state while checking auth
   if (isChecking) {

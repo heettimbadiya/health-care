@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { isAuthenticated } from '@/lib/auth';
+import { useAuth } from '@/lib/auth';
 
 export interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -15,24 +15,17 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
   const router = useRouter();
   const [isChecking, setIsChecking] = useState(true);
 
+  const { isAuthenticated, isLoading: authLoading } = useAuth();
+
   useEffect(() => {
-    // Check authentication status
-    const checkAuth = () => {
-      const authenticated = isAuthenticated();
-      if (!authenticated) {
+    if (!authLoading) {
+      if (!isAuthenticated) {
         router.push('/auth/login');
       } else {
         setIsChecking(false);
       }
-    };
-
-    // Small delay to ensure localStorage is available
-    const timer = setTimeout(() => {
-      checkAuth();
-    }, 100);
-
-    return () => clearTimeout(timer);
-  }, [router]);
+    }
+  }, [isAuthenticated, authLoading, router]);
 
   // Show loading state while checking auth
   if (isChecking) {

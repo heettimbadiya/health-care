@@ -8,12 +8,13 @@ import Input from '@/components/ui/Input';
 import PasswordInput from '@/components/ui/PasswordInput';
 import Button from '@/components/ui/Button';
 import { LoginFormData, FormErrors } from '@/types/auth';
-import { setAuthToken, generateDummyToken, setUserData } from '@/lib/auth';
+import { useAuth } from '@/lib/auth';
 import { useToaster } from '@/hooks/useToaster';
 import Toaster from '@/components/ui/Toaster';
 
 export default function LoginPage() {
   const router = useRouter();
+  const { login } = useAuth();
   const toaster = useToaster();
   const [formData, setFormData] = useState<LoginFormData>({
     email: '',
@@ -50,46 +51,17 @@ export default function LoginPage() {
 
     setIsLoading(true);
 
-    // Mock API call with localStorage
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      const result = await login(formData.email, formData.password);
       
-      // Check if user exists in localStorage
-      const existingUsers = JSON.parse(localStorage.getItem('healthcare_users') || '[]');
-      const user = existingUsers.find((u: any) => u.email === formData.email);
-      
-      // Check if user exists and password matches
-      if (!user) {
-        toaster.error('Invalid credentials. Please check your email and password.');
-        setIsLoading(false);
-        return;
+      if (result.success) {
+        toaster.success('Successfully logged in! Redirecting...');
+        setTimeout(() => {
+          router.push('/dashboard');
+        }, 1000);
+      } else {
+        toaster.error(result.message || 'Invalid credentials. Please check your email and password.');
       }
-      
-      if (user.password !== formData.password) {
-        toaster.error('Invalid credentials. Please check your email and password.');
-        setIsLoading(false);
-        return;
-      }
-      
-      // Generate and store token
-      const token = generateDummyToken();
-      setAuthToken(token);
-      
-      // Store user data
-      setUserData({
-        email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        clinicLocation: user.clinicLocation,
-      });
-      
-      // Show success message
-      toaster.success('Successfully logged in! Redirecting...');
-      
-      // Redirect after a short delay
-      setTimeout(() => {
-        router.push('/dashboard');
-      }, 1000);
     } catch (error) {
       toaster.error('Login failed. Please try again.');
     } finally {
@@ -160,15 +132,6 @@ export default function LoginPage() {
         </Button>
       </form>
 
-      <div className="text-center text-sm text-gray-600">
-        Don't have an account?{' '}
-        <Link
-          href="/auth/register"
-          className="text-primary-600 hover:text-primary-700 font-semibold transition-colors"
-        >
-          Create an account
-        </Link>
-      </div>
     </AuthCard>
     </>
   );
