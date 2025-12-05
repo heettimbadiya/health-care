@@ -81,6 +81,7 @@ export function DeleteConfirmationModal({
             className="w-full sm:w-auto"
           >
             Delete Employee
+
           </Button>
         </div>
       </div>
