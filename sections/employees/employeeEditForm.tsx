@@ -377,6 +377,7 @@ export default function EditEmployeePage() {
     const toaster = useToaster();
     const employeeId = params.id as string;
 
+
     const [formData, setFormData] = useState<EmployeeFormData>({
         firstName: '',
         lastName: '',
