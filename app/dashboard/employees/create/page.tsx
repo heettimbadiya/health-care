@@ -83,7 +83,6 @@ export default function CreateEmployeePage() {
       setErrors((prev) => ({ ...prev, [name]: undefined }));
     }
   };
-
   const handleFileSelect = (file: File | null) => {
     setFormData((prev) => ({ ...prev, profilePic: file }));
   };
