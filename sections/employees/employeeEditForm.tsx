@@ -378,9 +378,9 @@ export default function EditEmployeePage() {
     const employeeId = params.id as string;
 
     const [formData, setFormData] = useState<EmployeeFormData>({
-        firstName: '',
-        lastName: '',
-        email: '',
+        firstName:'',
+        lastName:'',
+        email:'',
         location: '',
         role: '',
         phoneNumber: '',
