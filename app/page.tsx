@@ -11,17 +11,14 @@ export default function Home() {
   useEffect(() => {
     if (!isLoading) {
       if (isAuthenticated) {
-        // If authenticated, redirect to dashboard
         router.push("/dashboard");
       } else {
-        // If not authenticated, redirect to login
         router.push("/auth/login");
       }
       setIsChecking(false);
     }
   }, [isAuthenticated, isLoading, router]);
 
-  // Show loading state while checking auth
   if (isChecking) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 via-white to-secondary-50">
