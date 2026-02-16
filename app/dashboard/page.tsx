@@ -22,7 +22,6 @@ function DashboardContent() {
       description="Welcome to your healthcare portal"
       breadcrumbs={[{ label: 'Dashboard' }]}
     >
-      {/* Welcome Section */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-2">
           Welcome back, {user?.firstName || 'User'}!
@@ -32,7 +31,6 @@ function DashboardContent() {
         </p>
       </div>
 
-      {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
           <div className="flex items-center justify-between">
@@ -131,7 +129,6 @@ function DashboardContent() {
         </div>
       </div>
 
-      {/* Welcome Card */}
       <div className="bg-gradient-to-br from-primary-600 to-secondary-600 rounded-xl shadow-lg p-8 text-white mb-8">
         <div className="max-w-2xl">
           <h2 className="text-2xl font-bold mb-4">Healthcare Incentive Management System</h2>
