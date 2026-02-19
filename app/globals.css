@@ -4,7 +4,6 @@
   --background: #ffffff;
   --foreground: #171717;
   
-  /* Healthcare Theme Colors */
   --primary-50: #e6f2ff;
   --primary-100: #b3d9ff;
   --primary-200: #80bfff;
@@ -34,7 +33,6 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   
-  /* Primary (Blue) Colors */
   --color-primary-50: var(--primary-50);
   --color-primary-100: var(--primary-100);
   --color-primary-200: var(--primary-200);
@@ -46,7 +44,6 @@
   --color-primary-800: var(--primary-800);
   --color-primary-900: var(--primary-900);
   
-  /* Secondary (Green) Colors */
   --color-secondary-50: var(--secondary-50);
   --color-secondary-100: var(--secondary-100);
   --color-secondary-200: var(--secondary-200);
