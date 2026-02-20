@@ -12,10 +12,8 @@ import Select from "@/components/ui/Select";
 import PasswordInput from "@/components/ui/PasswordInput";
 import Button from "@/components/ui/Button";
 
-// Local storage key for employees (same as in employeeList)
 const EMPLOYEES_STORAGE_KEY = 'healthcare_employees';
 
-// Local storage helpers (from app/dashboard/employees/utils/storage.ts)
 function getEmployees(): Employee[] {
     if (typeof window === 'undefined') return [];
 
@@ -71,7 +69,6 @@ function emailExists(email: string, excludeId?: string): boolean {
     return employees.some((emp) => emp.email === email && emp.id !== excludeId);
 }
 
-// Yup schema for edit mode (password optional)
 const employeeEditSchema = Yup.object({
     firstName: Yup.string()
         .trim()
@@ -128,7 +125,6 @@ async function validateEmployeeFormEditYup(formData: EmployeeFormData): Promise<
     }
 }
 
-// File to base64 helper (from utils/validation.ts)
 function fileToBase64(file: File): Promise<string> {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -195,10 +191,6 @@ export function EmployeeEditForm({
         }
     };
 
-    const handleUploadClick = () => {
-        fileInputRef.current?.click();
-    };
-
     return (
         <form
             onSubmit={(e) => {
@@ -210,10 +202,8 @@ export function EmployeeEditForm({
         >
             <div className="w-full flex flex-col lg:flex-row gap-10 items-start">
 
-                {/* LEFT SIDE – SMALL PROFILE CARD */}
                 <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 flex flex-col items-center w-full lg:w-[420px] h-auto">
 
-                    {/* Hidden File Input */}
                     <input
                         ref={fileInputRef}
                         type="file"
@@ -223,7 +213,6 @@ export function EmployeeEditForm({
                         disabled={isLoading}
                     />
 
-                    {/* PROFILE IMAGE (click to upload) */}
                     <div
                         onClick={() => fileInputRef.current?.click()}
                         className="w-50 h-50 rounded-full overflow-hidden border-2 border-gray-200 shadow cursor-pointer hover:opacity-80 transition"
@@ -261,7 +250,6 @@ export function EmployeeEditForm({
 
                 </div>
 
-                {/* RIGHT SIDE – FULL WIDTH FORM */}
                 <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-8 w-full">
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -347,7 +335,6 @@ export function EmployeeEditForm({
 
                     </div>
 
-                    {/* BUTTONS */}
                     <div className="flex justify-end gap-4 pt-8 mt-6 border-t border-gray-200">
                         {onCancel && (
                             <Button
@@ -392,7 +379,6 @@ export default function EditEmployeePage() {
     const [isSaving, setIsSaving] = useState(false);
 
     useEffect(() => {
-        // Load employee data
         const loadEmployee = () => {
             const employee = getEmployeeById(employeeId);
 
@@ -421,7 +407,6 @@ export default function EditEmployeePage() {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        // Validate form with Yup (password optional)
         const validation = await validateEmployeeFormEditYup(formData);
         if (!validation.isValid) {
             setErrors(validation.errors);
@@ -429,7 +414,6 @@ export default function EditEmployeePage() {
             return;
         }
 
-        // Check if email already exists (excluding current employee)
         if (emailExists(formData.email, employeeId)) {
             setErrors({ ...errors, email: 'An employee with this email already exists' });
             toaster.error('An employee with this email already exists');
@@ -439,7 +423,6 @@ export default function EditEmployeePage() {
         setIsSaving(true);
 
         try {
-            // Convert profilePic file to base64 if it's a new file
             let profilePicUrl: string | undefined = undefined;
             if (formData.profilePic instanceof File) {
                 profilePicUrl = await fileToBase64(formData.profilePic);
@@ -447,7 +430,6 @@ export default function EditEmployeePage() {
                 profilePicUrl = formData.profilePic;
             }
 
-            // Update employee
             const updated = updateEmployee(employeeId, {
                 firstName: formData.firstName,
                 lastName: formData.lastName,
@@ -477,7 +459,6 @@ export default function EditEmployeePage() {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
-        // Clear error when user starts typing
         if (errors[name as keyof EmployeeFormData]) {
             setErrors((prev) => ({ ...prev, [name]: undefined }));
         }
