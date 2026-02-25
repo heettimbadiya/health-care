@@ -24,9 +24,6 @@ export interface EmployeeEditFormProps {
   submitButtonText?: string;
 }
 
-/* -------------------------------------------------------------------------- */
-/*                                YUP SCHEMA                                  */
-/* -------------------------------------------------------------------------- */
 
 const employeeSchema = Yup.object().shape({
   firstName: Yup.string()
