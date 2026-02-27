@@ -117,7 +117,6 @@ export function EmployeeForm({
         />
       </div>
 
-      {/* Phone Number - Conditional (only in edit mode) */}
       {showPhoneNumber && (
         <Input
           type="tel"
@@ -131,7 +130,6 @@ export function EmployeeForm({
         />
       )}
 
-      {/* Password - Conditional (can appear in both modes) */}
       {showPassword && (
         <PasswordInput
           name="password"
@@ -146,7 +144,6 @@ export function EmployeeForm({
         />
       )}
 
-      {/* Profile Picture - Conditional (only in edit mode) */}
       {showProfilePic && (
         <FileUpload
           name="profilePic"
@@ -160,7 +157,6 @@ export function EmployeeForm({
         />
       )}
 
-      {/* Form Actions */}
       <div className="flex justify-end gap-4 pt-4 border-t border-gray-200">
         {onCancel && (
           <Button
