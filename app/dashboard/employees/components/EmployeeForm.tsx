@@ -43,14 +43,12 @@ export function EmployeeForm({
   return (
     <form 
       onSubmit={(e) => {
-        // Only prevent default for form submission, not for navigation
         e.preventDefault();
         onSubmit(e);
       }}
       className="space-y-6 bg-white rounded-lg shadow-sm border border-gray-200 p-6" 
       noValidate
     >
-      {/* Name Fields */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Input
           type="text"
@@ -77,7 +75,6 @@ export function EmployeeForm({
         />
       </div>
 
-      {/* Email */}
       <Input
         type="email"
         name="email"
@@ -90,7 +87,6 @@ export function EmployeeForm({
         disabled={isLoading}
       />
 
-      {/* Location and Role */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Select
           name="location"
