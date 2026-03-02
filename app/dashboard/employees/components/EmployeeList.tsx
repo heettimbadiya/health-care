@@ -64,15 +64,12 @@ export const EmployeeList = React.forwardRef<EmployeeListRef, EmployeeListProps>
   };
 
   useEffect(() => {
-    // Initial load
     loadEmployees();
 
-    // Reload when page gains focus
     const handleFocus = () => {
       loadEmployees();
     };
 
-    // Listen for custom event when employees are updated
     const handleEmployeesUpdate = () => {
       loadEmployees();
       if (onRefresh) {
@@ -80,7 +77,6 @@ export const EmployeeList = React.forwardRef<EmployeeListRef, EmployeeListProps>
       }
     };
 
-    // Listen for custom event to open create modal
     const handleOpenCreateModal = () => {
       setIsCreateModalOpen(true);
     };
@@ -96,7 +92,6 @@ export const EmployeeList = React.forwardRef<EmployeeListRef, EmployeeListProps>
     };
   }, [onRefresh]);
 
-  // Filter employees based on search query
   const filteredEmployees = useMemo(() => {
     if (!searchQuery.trim()) {
       return employees;
@@ -149,7 +144,6 @@ export const EmployeeList = React.forwardRef<EmployeeListRef, EmployeeListProps>
     setSortDirection(direction);
   };
 
-  // Sort and paginate data
   const processedData = useMemo(() => {
     let sorted = [...filteredEmployees];
 
@@ -175,7 +169,6 @@ export const EmployeeList = React.forwardRef<EmployeeListRef, EmployeeListProps>
   const handleCreateSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Validate form
     const validation = validateEmployeeForm(formData, 'create');
     if (!validation.isValid) {
       setErrors(validation.errors);
@@ -183,7 +176,6 @@ export const EmployeeList = React.forwardRef<EmployeeListRef, EmployeeListProps>
       return;
     }
 
-    // Check if email already exists
     if (emailExists(formData.email)) {
       setErrors({ ...errors, email: 'An employee with this email already exists' });
       toaster.error('An employee with this email already exists');
@@ -193,13 +185,11 @@ export const EmployeeList = React.forwardRef<EmployeeListRef, EmployeeListProps>
     setIsCreating(true);
 
     try {
-      // Convert profilePic file to base64 if present
       let profilePicUrl: string | undefined;
       if (formData.profilePic instanceof File) {
         profilePicUrl = await fileToBase64(formData.profilePic);
       }
 
-      // Create employee
       createEmployee({
         firstName: formData.firstName,
         lastName: formData.lastName,
@@ -210,7 +200,6 @@ export const EmployeeList = React.forwardRef<EmployeeListRef, EmployeeListProps>
         profilePic: profilePicUrl,
       });
 
-      // Reset form
       setFormData({
         firstName: '',
         lastName: '',
@@ -347,7 +336,6 @@ export const EmployeeList = React.forwardRef<EmployeeListRef, EmployeeListProps>
   return (
     <>
       <div className="w-full space-y-4">
-        {/* Search Bar */}
         <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
           <div className="w-full sm:max-w-md">
             <div className="relative">
@@ -411,7 +399,6 @@ export const EmployeeList = React.forwardRef<EmployeeListRef, EmployeeListProps>
         />
       </div>
 
-      {/* Create Employee Modal */}
       <Modal
         isOpen={isCreateModalOpen}
         onClose={() => {
@@ -465,7 +452,6 @@ export const EmployeeList = React.forwardRef<EmployeeListRef, EmployeeListProps>
         </div>
       </Modal>
 
-      {/* Delete Confirmation Modal */}
       <DeleteConfirmationModal
         isOpen={isDeleteModalOpen}
         onClose={() => {
