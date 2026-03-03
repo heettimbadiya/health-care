@@ -34,13 +34,11 @@ export const EmployeeList = React.forwardRef<EmployeeListRef, EmployeeListProps>
     const [sortColumn, setSortColumn] = useState<string | null>(null);
     const [sortDirection, setSortDirection] = useState<'asc' | 'desc' | null>(null);
     
-    // Modal states
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [employeeToDelete, setEmployeeToDelete] = useState<Employee | null>(null);
     const [isDeleting, setIsDeleting] = useState(false);
   
-  // Create form state
   const [formData, setFormData] = useState<EmployeeFormData>({
     firstName: '',
     lastName: '',
@@ -225,7 +223,6 @@ export const EmployeeList = React.forwardRef<EmployeeListRef, EmployeeListProps>
   const handleCreateChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    // Clear error when user starts typing
     if (errors[name as keyof EmployeeFormData]) {
       setErrors((prev) => ({ ...prev, [name]: undefined }));
     }
@@ -360,7 +357,7 @@ export const EmployeeList = React.forwardRef<EmployeeListRef, EmployeeListProps>
                 value={searchQuery}
                 onChange={(e) => {
                   setSearchQuery(e.target.value);
-                  setCurrentPage(1); // Reset to first page on search
+                  setCurrentPage(1);
                 }}
                 className="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-primary-500 focus:border-primary-500 text-sm"
               />
