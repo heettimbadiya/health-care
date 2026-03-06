@@ -1,7 +1,3 @@
-/**
- * Employee Module Constants
- */
-
 import { SelectOption } from '@/components/ui/Select';
 
 export const LOCATION_OPTIONS: SelectOption[] = [
