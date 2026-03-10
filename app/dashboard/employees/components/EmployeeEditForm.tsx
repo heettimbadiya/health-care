@@ -56,7 +56,6 @@ const employeeSchema = Yup.object().shape({
   }),
 });
 
-/* -------------------------------------------------------------------------- */
 
 export function EmployeeEditForm({
                                    formData,
